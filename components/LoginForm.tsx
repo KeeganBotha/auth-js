@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import { signIn } from "@/auth";
@@ -13,39 +11,36 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 import { Button } from "./ui/button";
+import { authenticate } from "@/app/action";
 
 export default function LoginForm() {
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-
-  function handleSubmit() {
-    signIn("credentials", { email: email, password: password });
-  }
-
   return (
     <Card className="w-[25rem]">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
-          Fill in your credentials below to log in
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-4">
-          <Input
-            value={email}
-            onChange={(event) => setEmail(event.currentTarget.value)}
-          />
-          <Input
-            value={password}
-            onChange={(event) => setPassword(event.currentTarget.value)}
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button onClick={handleSubmit}>Submit</Button>
-      </CardFooter>
+      <form action={(formData) => await authenticate.bind(formData)}>
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>
+            Fill in your credentials below to log in
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-4">
+            <Label>
+              Email
+              <Input className="mt-2" name="email" type="email" />
+            </Label>
+            <Label>
+              Password
+              <Input className="mt-2" name="password" type="password" />
+            </Label>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-end">
+          <Button type="submit">Sign In</Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }

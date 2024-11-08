@@ -6,7 +6,7 @@ import { saltAndHashPassword } from "./lib/utils";
 const users = [
   {
     email: "text@gmail.com",
-    password: "",
+    password: "$2a$10$ZP.8xOcSeYygnto0OMCkVOCbaJk9YZIru//kl2a/mWPA6OP//bMk6",
   },
 ];
 
