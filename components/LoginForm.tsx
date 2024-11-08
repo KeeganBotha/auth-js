@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { signIn } from "@/auth";
+
 import {
   Card,
   CardContent,
@@ -14,12 +16,11 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 export default function LoginForm() {
-  const [userName, setUserName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
   function handleSubmit() {
-    console.log(userName);
-    console.log(password);
+    signIn("credentials", { email: email, password: password });
   }
 
   return (
@@ -33,8 +34,8 @@ export default function LoginForm() {
       <CardContent>
         <div className="flex flex-col gap-4">
           <Input
-            value={userName}
-            onChange={(event) => setUserName(event.currentTarget.value)}
+            value={email}
+            onChange={(event) => setEmail(event.currentTarget.value)}
           />
           <Input
             value={password}
