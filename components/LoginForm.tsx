@@ -13,12 +13,16 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
-import { authenticate } from "@/app/action";
 
 export default function LoginForm() {
   return (
     <Card className="w-[25rem]">
-      <form action={(formData) => await authenticate.bind(formData)}>
+      <form
+        action={async (formData) => {
+          "use server";
+          await signIn("credentials", formData);
+        }}
+      >
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardDescription>
