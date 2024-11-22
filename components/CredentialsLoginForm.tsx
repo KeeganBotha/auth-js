@@ -14,7 +14,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 
-export default function LoginForm() {
+export default function CredentialsLoginForm() {
   return (
     <Card className="w-[25rem]">
       <form
