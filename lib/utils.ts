@@ -17,3 +17,13 @@ export async function saltAndHashPassword(password: string) {
     throw new Error("Password hashing failed");
   }
 }
+
+export async function comparePasswords(password1: string, password2: string) {
+  try {
+    const isMatch = bcrypt.compare(password1, password2);
+    return isMatch;
+  } catch (error) {
+    console.error("error matching passwords", error);
+    throw new Error("password compare failed");
+  }
+}
