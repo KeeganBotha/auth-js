@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
 import { comparePasswords, saltAndHashPassword } from "./lib/utils";
+import { signInSchema } from "./lib/zod";
 
 const users = [
   {
@@ -19,13 +20,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       authorize: async (credentials) => {
         let user = null;
-        const pwHash = await saltAndHashPassword(
-          credentials.password as string
-        );
+        const { email, password } = await signInSchema.parseAsync(credentials);
 
         user = users.find((entity) => {
-          return entity.email === credentials.email;
-          comparePasswords(entity.password, pwHash);
+          const isMatch = comparePasswords(password, entity.password);
+          return entity.email === email && isMatch;
         });
 
         if (!user) {

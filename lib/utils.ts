@@ -18,9 +18,12 @@ export async function saltAndHashPassword(password: string) {
   }
 }
 
-export async function comparePasswords(password1: string, password2: string) {
+export async function comparePasswords(
+  password: string,
+  hashedPassword2: string
+) {
   try {
-    const isMatch = bcrypt.compare(password1, password2);
+    const isMatch = await bcrypt.compare(password, hashedPassword2);
     return isMatch;
   } catch (error) {
     console.error("error matching passwords", error);
